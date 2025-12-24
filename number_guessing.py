@@ -5,6 +5,9 @@ def int_check(n: any, msg: str) -> int:
     This function checks if the input is an integer.
     If not, it prompts the user to enter a valid integer.
     '''
+    quit_list = ['q','Q','quit','Quit','exit','Exit']
+    if n in quit_list:
+        exit()
     try:
         return int(n)
     except ValueError:
