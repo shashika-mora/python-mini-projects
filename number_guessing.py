@@ -12,11 +12,11 @@ def int_check(n: any) -> int:
 
 def main():
     top_range = int_check(input("Enter the top range: "))
-    r= random.randrange(top_range)
-    guess = 0
+    r= random.randrange(0, top_range+1)
+    guess_count = 0
 
     while True:
-        guess += 1
+        guess_count += 1
         guess = int_check(input("Enter your guess: "))
         if guess == r:
             print("You guessed it!")
@@ -26,7 +26,7 @@ def main():
         else:
             print("Too high!")
     
-    print("You guessed it in", guess, "guesses!")
+    print("You guessed it in", guess_count, "guesses!")
 
 if __name__ == "__main__":
     main()
