@@ -10,13 +10,17 @@ while True:
         break
 
     if user_input not in options:
+        print("Invalid input, please try again.")
         continue
 
     random_number = random.randint(0, 2)
     computer_input = options[random_number]
     print(f"Computer picked {computer_input}.")
-    
-    if user_input == "rock" and computer_input == "scissors":
+
+    if user_input == computer_input:
+        print("Tie!")
+        continue
+    elif user_input == "rock" and computer_input == "scissors":
         print("You won!")
         user_wins += 1
     elif user_input == "paper" and computer_input == "rock":
