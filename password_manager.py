@@ -1,27 +1,37 @@
 from cryptography.fernet import Fernet
+import os
 
 def write_key():
     key = Fernet.generate_key()
     with open("key.key", "wb") as key_file:
         key_file.write(key)
 
-write_key()
+
 
 def load_key():
     return open("key.key", "rb").read()
 
 master_password = input("What is the master password? ")
 
+if not os.path.exists("key.key"):
+    write_key()
+
+key = load_key()
+fernet = Fernet(key)
+
 def view_passwords():
     with open('passwords.txt', 'r') as f:
-        print(f.read().rstrip())
+        for line in f.readlines():
+            data = line.rstrip()
+            site, user, passw = data.split("|")
+            print(f"Site: {site}, User: {user}, Password: {str(fernet.decrypt(passw.encode()).decode())}")
 
 def add_password():
     site = input("Enter the site/login name: ")
     username = input("Enter the username: ")
     password = input("Enter the password: ")
     with open('passwords.txt', 'a') as f:
-        f.write(f"{site}|{username}|{password}\n")
+        f.write(f"{site}|{username}|{str(fernet.encrypt(password.encode()).decode())}\n")
 
 while True:
     mode = input('''
